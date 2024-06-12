@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +19,8 @@ public class Lista_tareas extends AppCompatActivity {
     private Button btnAdd, btndelete;
     private TextView txtLista;
     private List<String> listaTareas;
+
+    private static final String LISTA_TAREAS_KEY = "listaTareas";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,12 @@ public class Lista_tareas extends AppCompatActivity {
         btndelete = findViewById(R.id.btndelete);
         txtLista = findViewById(R.id.txtLista);
 
-        listaTareas = new ArrayList<>();
+        if (savedInstanceState != null) {
+            listaTareas = savedInstanceState.getStringArrayList(LISTA_TAREAS_KEY);
+            mostrarTareas();
+        } else {
+            listaTareas = new ArrayList<>();
+        }
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,5 +123,18 @@ public class Lista_tareas extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList(LISTA_TAREAS_KEY, new ArrayList<>(listaTareas));
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        listaTareas = savedInstanceState.getStringArrayList(LISTA_TAREAS_KEY);
+        mostrarTareas();
     }
 }
