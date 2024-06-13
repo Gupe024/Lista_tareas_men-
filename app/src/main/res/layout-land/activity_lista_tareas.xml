@@ -53,7 +53,7 @@
                     android:id="@+id/btndelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ELIMINAR"
+                    android:text="OPCIONES"
                     android:layout_marginTop="140dp"
                     android:layout_marginStart="530dp" />
 
